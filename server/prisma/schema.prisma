@@ -1,0 +1,105 @@
+// Prisma Schema for Skill Gomoku
+// Database models for the online multiplayer game
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// User model - stores player information
+model User {
+  id        String   @id @default(uuid())
+  username  String   @unique
+  email     String   @unique
+  password  String   // bcrypt hashed
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  // Relations
+  gamesAsBlack Game[] @relation("BlackPlayer")
+  gamesAsWhite Game[] @relation("WhitePlayer")
+  
+  @@map("users")
+}
+
+// Game model - stores completed games
+model Game {
+  id          String   @id @default(uuid())
+  roomId      String   @unique
+  
+  // Players
+  blackPlayerId String
+  blackPlayer   User   @relation("BlackPlayer", fields: [blackPlayerId], references: [id])
+  whitePlayerId String
+  whitePlayer   User   @relation("WhitePlayer", fields: [whitePlayerId], references: [id])
+  
+  // Game result
+  winner     String?  // 'black' or 'white'
+  totalTurns Int
+  
+  // Game data
+  boardState   String   // JSON stringified board
+  skillCards   String   // JSON stringified skill cards used
+  gameHistory  String   // JSON stringified move history
+  
+  // Timestamps
+  startedAt  DateTime @default(now())
+  endedAt    DateTime?
+  duration   Int?     // in seconds
+  
+  @@map("games")
+}
+
+// GameSession model - stores active game sessions
+model GameSession {
+  id        String   @id @default(uuid())
+  roomId    String   @unique
+  status    String   @default("waiting") // waiting, playing, ended
+  
+  // Player sockets
+  blackSocketId String?
+  whiteSocketId String?
+  
+  // Game state (JSON)
+  gameState String
+  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  @@map("game_sessions")
+}
+
+// UserStats model - stores player statistics
+model UserStats {
+  id        String @id @default(uuid())
+  userId    String @unique
+  
+  wins      Int    @default(0)
+  losses    Int    @default(0)
+  draws     Int    @default(0)
+  
+  // Skill usage stats (JSON)
+  skillUsage String @default("{}")
+  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  @@map("user_stats")
+}
+
+// BlockedZone model - for testing purposes
+model BlockedZone {
+  id              String @id @default(uuid())
+  gameSessionId   String
+  
+  centerRow       Int
+  centerCol       Int
+  expiresAfterTurn Int
+  blockedBy       String // 'black' or 'white'
+  
+  @@map("blocked_zones")
+}
