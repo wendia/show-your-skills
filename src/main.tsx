@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
-import './index.css';  // Load Tailwind CSS
+import './index.scss';  // Load Tailwind CSS + global vars
 import { configManager } from './config';
 import { skillRegistry } from './skills/core/SkillRegistry';
 import { registerAllEffects } from './skills/effects';

@@ -7,8 +7,9 @@
  */
 
 import React from 'react';
-import { SkillCard as SkillCardType } from '../types';
+import { SkillCard as SkillCardType } from '@/config/types';
 import { useGameStore } from '../store/gameStore';
+import styles from './SkillCard.module.scss';
 
 interface SkillCardProps {
   card: SkillCardType;
@@ -38,7 +39,6 @@ export const SkillCardComponent: React.FC<SkillCardProps> = ({ card, isCurrentPl
     
     console.log('点击使用技能卡:', card.name);
     
-    // 区域封锁需要先选择位置
     if (card.skillId === 'block_zone') {
       selectSkillCard(card.id);
       setSelectMode('blockZone');
@@ -46,7 +46,6 @@ export const SkillCardComponent: React.FC<SkillCardProps> = ({ card, isCurrentPl
       return;
     }
     
-    // 棋子复制需要先选择位置
     if (card.skillId === 'clone') {
       selectSkillCard(card.id);
       setSelectMode('clone');
@@ -54,93 +53,42 @@ export const SkillCardComponent: React.FC<SkillCardProps> = ({ card, isCurrentPl
       return;
     }
     
-    // 其他技能直接使用
     useSkill(card.id);
   };
+
+  const cardClasses = [
+    styles.card,
+    isSelected ? styles.selected : '',
+    card.used ? styles.used : '',
+    isDisabled ? styles.disabled : '',
+  ].filter(Boolean).join(' ');
   
   return (
-    <div
-      className={`skill-card ${isSelected ? 'selected' : ''} ${card.used ? 'used' : ''}`}
-      onClick={handleClick}
-      style={{
-        width: '140px',
-        padding: '12px',
-        margin: '5px',
-        borderRadius: '12px',
-        border: isSelected ? '3px solid #4CAF50' : '2px solid #ddd',
-        backgroundColor: card.used ? '#f5f5f5' : (isSelected ? '#e8f5e9' : '#fff'),
-        cursor: isDisabled ? 'not-allowed' : 'pointer',
-        opacity: isDisabled ? 0.5 : 1,
-        transition: 'all 0.2s ease',
-        boxShadow: isSelected 
-          ? '0 6px 20px rgba(76, 175, 80, 0.4)' 
-          : '0 2px 8px rgba(0,0,0,0.1)',
-        transform: isSelected ? 'scale(1.02)' : 'scale(1)',
-      }}
-    >
+    <div className={cardClasses} onClick={handleClick}>
       {/* 技能图标 */}
-      <div style={{
-        fontSize: '24px',
-        textAlign: 'center',
-        marginBottom: '8px',
-      }}>
-        {getSkillEmoji(card.skillId)}
-      </div>
+      <div className={styles.icon}>{getSkillEmoji(card.skillId)}</div>
       
       {/* 技能名称 */}
-      <div style={{ 
-        fontWeight: 'bold', 
-        marginBottom: '5px', 
-        fontSize: '14px',
-        textAlign: 'center',
-        color: card.used ? '#999' : '#333',
-      }}>
+      <div className={`${styles.name} ${card.used ? styles.nameUsed : ''}`}>
         {card.name}
       </div>
       
       {/* 技能描述 */}
-      <div style={{ 
-        fontSize: '11px', 
-        color: '#666',
-        lineHeight: '1.4',
-        minHeight: '30px',
-      }}>
-        {card.description}
-      </div>
+      <div className={styles.description}>{card.description}</div>
       
       {/* 使用按钮 */}
       {!card.used && isCurrentPlayer && (
         <button
           onClick={handleUse}
-          style={{
-            marginTop: '10px',
-            width: '100%',
-            padding: '8px 0',
-            fontSize: '13px',
-            fontWeight: 'bold',
-            backgroundColor: getButtonColor(card.skillId, isSelected),
-            color: 'white',
-            border: 'none',
-            borderRadius: '6px',
-            cursor: 'pointer',
-            transition: 'background-color 0.2s',
-          }}
+          className={styles.useBtn}
+          style={{ backgroundColor: getButtonColor(card.skillId, isSelected) }}
         >
           {getButtonText(card.skillId, isSelected)}
         </button>
       )}
       
       {/* 已使用标记 */}
-      {card.used && (
-        <div style={{
-          marginTop: '10px',
-          textAlign: 'center',
-          color: '#999',
-          fontSize: '12px',
-        }}>
-          ✓ 已使用
-        </div>
-      )}
+      {card.used && <div className={styles.usedTag}>✓ 已使用</div>}
     </div>
   );
 };
@@ -201,48 +149,22 @@ export const SkillCardList: React.FC = () => {
     || 'Opponent';
 
   return (
-    <div className="skill-cards-container" style={{ 
-      display: 'flex', 
-      flexDirection: 'column', 
-      gap: '25px' 
-    }}>
+    <div className={styles.container}>
       {/* 选择模式提示 */}
       {selectMode !== 'none' && (
-        <div style={{
-          padding: '12px',
-          backgroundColor: '#fff3e0',
-          border: '2px solid #ff9800',
-          borderRadius: '8px',
-          fontSize: '14px',
-          color: '#e65100',
-          textAlign: 'center',
-        }}>
+        <div className={styles.selectHint}>
           {selectMode === 'blockZone' && '🚫 请在棋盘上点击选择封锁区域'}
           {selectMode === 'clone' && '👯 请在棋盘上点击选择目标位置'}
         </div>
       )}
       
       {/* 当前玩家 */}
-      <div>
-        <div style={{ 
-          fontWeight: 'bold', 
-          marginBottom: '12px',
-          fontSize: '16px',
-          color: '#333',
-          padding: '8px 12px',
-          backgroundColor: '#e3f2fd',
-          borderRadius: '8px',
-        }}>
+      <div className={styles.playerSection}>
+        <div className={`${styles.playerHeader} ${styles.playerHeaderCurrent}`}>
           {getPlayerIcon(currentPlayer?.color ?? 'black')} {currentPlayerName}
-          <span style={{ 
-            fontSize: '12px', 
-            color: '#666',
-            marginLeft: '8px',
-          }}>
-            (当前回合)
-          </span>
+          <span className={styles.currentTurnHint}>(当前回合)</span>
         </div>
-        <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+        <div className={styles.cardList}>
           {currentPlayerCards.map(card => (
             <SkillCardComponent
               key={card.id}
@@ -254,19 +176,11 @@ export const SkillCardList: React.FC = () => {
       </div>
 
       {/* 对手 */}
-      <div style={{ opacity: 0.7 }}>
-        <div style={{
-          fontWeight: 'bold',
-          marginBottom: '12px',
-          fontSize: '16px',
-          color: '#333',
-          padding: '8px 12px',
-          backgroundColor: '#f5f5f5',
-          borderRadius: '8px',
-        }}>
+      <div className={styles.opponentSection}>
+        <div className={`${styles.playerHeader} ${styles.playerHeaderOpponent}`}>
           {getPlayerIcon(opponent?.color ?? 'white')} {opponentName}
         </div>
-        <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+        <div className={styles.cardList}>
           {opponentCards.map(card => (
             <SkillCardComponent 
               key={card.id} 

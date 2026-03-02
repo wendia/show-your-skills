@@ -1,60 +1,12 @@
-import { SkillDefinition, SkillCondition, SkillPoolConfig } from '../../config/types.js';
+import {
+  SkillDefinition, SkillCondition, SkillPoolConfig,
+  Stone, Board, Position, HistoryMove, SkillCard,
+  BlockedZone, PlayerState, GameState,
+} from '../../config/types.js';
 import { configManager } from '../../config/index.js';
 
-export type Stone = 'black' | 'white';
-
-export type Board = (Stone | null)[][];
-
-export interface Position {
-  row: number;
-  col: number;
-}
-
-export interface HistoryMove {
-  type: 'place' | 'skill';
-  position?: Position;
-  player: Stone;
-  skillId?: string;
-}
-
-export interface SkillCard {
-  id: string;
-  skillId: string;
-  name: string;
-  description: string;
-  rarity: 'common' | 'rare' | 'epic' | 'legendary';
-  used: boolean;
-}
-
-export interface BlockedZone {
-  centerPosition: Position;
-  expiresAfterTurn: number;
-  blockedBy: Stone;
-}
-
-export interface PlayerState {
-  id: string;
-  username: string;
-  color: Stone;
-  skillCards: SkillCard[];
-  timeRemaining?: number;
-}
-
-export interface GameState {
-  id: string;
-  board: Board;
-  currentPlayer: Stone;
-  phase: 'waiting' | 'playing' | 'ended';
-  winner?: Stone | 'draw';
-  players: {
-    black: PlayerState;
-    white: PlayerState;
-  };
-  history: HistoryMove[];
-  turn: number;
-  remainingMoves: number;
-  blockedZones: BlockedZone[];
-}
+// Re-export types for backward compatibility with downstream imports
+export type { Stone, Board, Position, HistoryMove, SkillCard, BlockedZone, PlayerState, GameState };
 
 export interface SkillContext {
   gameState: GameState;
@@ -135,6 +87,10 @@ class SkillRegistry {
         }
         case 'phase': {
           if (context.gameState.phase !== condition.value) return false;
+          break;
+        }
+        case 'custom': {
+          console.warn(`Custom condition not implemented: ${JSON.stringify(condition)}`);
           break;
         }
       }

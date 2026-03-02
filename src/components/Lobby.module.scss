@@ -1,0 +1,111 @@
+@use '../styles/variables' as *;
+@use '../styles/mixins' as *;
+
+// ============================================
+// Lobby Component Styles
+// ============================================
+
+.page {
+  @include page-container;
+}
+
+.card {
+  @include card-surface(500px);
+  text-align: center;
+}
+
+.title {
+  margin-bottom: 10px;
+  color: $text-primary;
+}
+
+.subtitle {
+  color: $text-secondary;
+  margin-bottom: $spacing-3xl;
+}
+
+// ---------- User Info ----------
+.userInfo {
+  @include status-box($color-info-bg);
+  margin-bottom: $spacing-xl;
+}
+
+.userName {
+  font-weight: bold;
+  color: $color-info-text;
+}
+
+// ---------- Online Section ----------
+.onlineSection {
+  margin-bottom: $spacing-3xl;
+}
+
+.sectionTitle {
+  margin-bottom: 15px;
+  color: $text-primary;
+}
+
+.matchBtn {
+  @include btn-primary;
+  padding: 15px;
+  border-radius: $radius-lg;
+  margin-bottom: 10px;
+
+  &:disabled {
+    background-color: $gray-400;
+    cursor: not-allowed;
+  }
+}
+
+.matchBtnActive {
+  background-color: $color-success;
+}
+
+.matchBtnDisabled {
+  background-color: $gray-400;
+}
+
+// ---------- Matching State ----------
+.matchingBox {
+  @include status-box($color-warning-bg);
+  padding: $spacing-xl;
+  margin-bottom: 10px;
+}
+
+.matchStatus {
+  margin-bottom: 10px;
+  color: $color-warning-text;
+}
+
+.matchHint {
+  color: $text-secondary;
+  font-size: $font-base;
+}
+
+.cancelBtn {
+  @include btn-danger;
+  border-radius: $radius-lg;
+}
+
+// ---------- Offline Section ----------
+.offlineSection {
+  @include status-box($gray-100);
+  padding: $spacing-xl;
+  margin-bottom: $spacing-xl;
+}
+
+.offlineTitle {
+  margin-bottom: 10px;
+  color: $text-secondary;
+}
+
+.offlineBtn {
+  @include btn-info;
+  border-radius: $radius-lg;
+}
+
+// ---------- Logout ----------
+.logoutBtn {
+  @include btn-outline;
+  border-radius: $radius-lg;
+}

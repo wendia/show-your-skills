@@ -1,0 +1,43 @@
+@use '../styles/variables' as *;
+@use '../styles/mixins' as *;
+
+// ============================================
+// GameUI Component Styles
+// ============================================
+
+.gameUi {
+  display: flex;
+  min-height: 100vh;
+  background-color: $gray-100;
+}
+
+.leftPanel {
+  width: $panel-left-width;
+  background-color: $white;
+  box-shadow: $shadow-panel;
+  z-index: $z-panel;
+}
+
+.centerPanel {
+  flex: 1;
+  @include flex-center;
+  padding: $spacing-xl;
+}
+
+.loading {
+  padding: $spacing-xl;
+  background-color: $white;
+  border-radius: $radius-lg;
+}
+
+.rightPanel {
+  width: $panel-right-width;
+  background-color: $white;
+  box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
+  padding: $spacing-xl;
+  overflow-y: auto;
+}
+
+.rightPanelTitle {
+  margin-bottom: 15px;
+}

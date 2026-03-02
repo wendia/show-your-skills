@@ -4,7 +4,8 @@ import { socketService } from './services/socket';
 import { AuthPage } from './components/AuthPage';
 import { Lobby } from './components/Lobby';
 import { GameUI } from './components/GameUI';
-import './App.css';
+import './App.scss';
+import styles from './components/App.module.scss';
 
 type AppMode = 'auth' | 'lobby' | 'offline-game' | 'online-game';
 
@@ -59,21 +60,7 @@ function App() {
   return (
     <div className="App">
       {/* 返回按钮 */}
-      <button
-        onClick={handleBackToLobby}
-        style={{
-          position: 'absolute',
-          top: '10px',
-          left: '10px',
-          padding: '8px 16px',
-          backgroundColor: '#666',
-          color: 'white',
-          border: 'none',
-          borderRadius: '4px',
-          cursor: 'pointer',
-          zIndex: 100,
-        }}
-      >
+      <button onClick={handleBackToLobby} className={styles.backBtn}>
         ← 返回大厅
       </button>
       
@@ -81,16 +68,7 @@ function App() {
       
       {/* 在线模式信息 */}
       {mode === 'online-game' && onlineRoom && (
-        <div style={{
-          position: 'absolute',
-          top: '10px',
-          right: '10px',
-          padding: '10px 15px',
-          backgroundColor: '#4CAF50',
-          color: 'white',
-          borderRadius: '4px',
-          fontSize: '14px',
-        }}>
+        <div className={styles.onlineInfo}>
           🌐 在线对战 | 房间: {onlineRoom.roomId?.slice(-6)}
         </div>
       )}

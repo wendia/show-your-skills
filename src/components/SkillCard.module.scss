@@ -1,0 +1,133 @@
+@use '../styles/variables' as *;
+@use '../styles/mixins' as *;
+
+// ============================================
+// SkillCard Component Styles (Legacy)
+// ============================================
+
+// ---------- Single Card ----------
+.card {
+  width: $card-width;
+  padding: $spacing-md;
+  margin: 5px;
+  border-radius: $radius-xl;
+  border: 2px solid $border-light;
+  background-color: $white;
+  cursor: pointer;
+  transition: $transition-base;
+  box-shadow: $shadow-sm;
+
+  &.selected {
+    border: 3px solid $color-success;
+    background-color: #e8f5e9;
+    box-shadow: $shadow-xl;
+    transform: scale(1.02);
+  }
+
+  &.used {
+    background-color: $gray-100;
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+
+  &.disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+}
+
+.icon {
+  font-size: 24px;
+  text-align: center;
+  margin-bottom: $spacing-sm;
+}
+
+.name {
+  font-weight: bold;
+  margin-bottom: 5px;
+  font-size: $font-base;
+  text-align: center;
+  color: $text-primary;
+
+  &.nameUsed {
+    color: $text-light;
+  }
+}
+
+.description {
+  font-size: $font-xs;
+  color: $text-secondary;
+  line-height: 1.4;
+  min-height: 30px;
+}
+
+.useBtn {
+  margin-top: 10px;
+  width: 100%;
+  padding: 8px 0;
+  font-size: 13px;
+  font-weight: bold;
+  color: $white;
+  border: none;
+  border-radius: $radius-md;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.usedTag {
+  margin-top: 10px;
+  text-align: center;
+  color: $text-light;
+  font-size: $font-sm;
+}
+
+// ---------- Card List Container ----------
+.container {
+  @include flex-column;
+  gap: 25px;
+}
+
+// ---------- Selection Mode Hint ----------
+.selectHint {
+  @include status-box($color-warning-bg);
+  border: 2px solid $color-warning;
+  text-align: center;
+  color: $color-warning-text;
+}
+
+// ---------- Player Section ----------
+.playerSection {
+  // container for each player's cards
+}
+
+.playerHeader {
+  font-weight: bold;
+  margin-bottom: $spacing-md;
+  font-size: $font-md;
+  color: $text-primary;
+  padding: $spacing-sm $spacing-md;
+  border-radius: $radius-lg;
+}
+
+.playerHeaderCurrent {
+  background-color: $color-info-bg;
+}
+
+.playerHeaderOpponent {
+  background-color: $gray-100;
+}
+
+.currentTurnHint {
+  font-size: $font-sm;
+  color: $text-secondary;
+  margin-left: $spacing-sm;
+}
+
+.cardList {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.opponentSection {
+  opacity: 0.7;
+}

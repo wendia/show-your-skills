@@ -1,0 +1,64 @@
+@use '../../styles/variables' as *;
+
+// ============================================
+// Game Board Component Styles (New-gen)
+// ============================================
+// Most layout in this component uses Tailwind + dynamic inline styles.
+// This SCSS file captures the dynamic grid and cell sizing.
+
+$cell: $cell-size-new;
+
+.boardWrapper {
+  display: inline-flex;
+  flex-direction: column;
+  border-radius: 0.5rem;
+  border: 4px solid rgba(146, 64, 14, 0.3);
+}
+
+.boardGrid {
+  display: grid;
+}
+
+.cell {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  width: $cell;
+  height: $cell;
+}
+
+.coordLabel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.colHeaders {
+  display: flex;
+  margin-left: 24px;
+}
+
+.rowHeaders {
+  display: flex;
+  flex-direction: column;
+  width: 24px;
+}
+
+.colHeader {
+  @extend .coordLabel;
+  width: $cell;
+  height: 20px;
+}
+
+.rowHeader {
+  @extend .coordLabel;
+  height: $cell;
+}
+
+.boardRow {
+  display: flex;
+}

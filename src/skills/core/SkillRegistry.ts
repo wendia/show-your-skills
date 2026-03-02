@@ -81,6 +81,10 @@ class SkillRegistry {
           if (context.gameState.phase !== condition.value) return false;
           break;
         }
+        case 'custom': {
+          console.warn(`Custom condition not implemented: ${JSON.stringify(condition)}`);
+          break;
+        }
       }
     }
     return true;

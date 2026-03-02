@@ -1,0 +1,72 @@
+@use '../styles/variables' as *;
+@use '../styles/mixins' as *;
+
+// ============================================
+// AuthPage Component Styles
+// ============================================
+
+.page {
+  @include page-container;
+}
+
+.card {
+  @include card-surface(400px);
+}
+
+.title {
+  @include text-center;
+  margin-bottom: $spacing-3xl;
+  color: $text-primary;
+}
+
+.subtitle {
+  @include text-center;
+  margin-bottom: $spacing-xl;
+  color: $text-secondary;
+}
+
+.formGroup {
+  @include form-group(15px);
+}
+
+.formGroupLast {
+  @include form-group($spacing-xl);
+}
+
+.label {
+  @include form-label;
+}
+
+.input {
+  @include form-input;
+}
+
+.errorBox {
+  @include status-box($color-error-bg);
+  color: $color-error-text;
+  margin-bottom: 15px;
+}
+
+.submitBtn {
+  @include btn-primary;
+  padding: $spacing-md $spacing-2xl;
+}
+
+.switchLink {
+  @include text-center;
+  margin-top: $spacing-xl;
+
+  button {
+    @include btn-link($color-info);
+  }
+}
+
+.guestLink {
+  @include text-center;
+  margin-top: 15px;
+
+  button {
+    @include btn-link($text-secondary);
+    font-size: 13px;
+  }
+}

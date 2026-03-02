@@ -2,6 +2,7 @@ import { motion } from 'framer-motion';
 import { useBoardStyle } from '@/theme/useTheme';
 import { cn } from '@/lib/utils';
 import { Board as BoardType, Position, Stone } from '@/config/types';
+import boardStyles from './Board.module.scss';
 
 // Cell size in pixels
 const CELL_SIZE = 32;
@@ -101,8 +102,7 @@ export function Board({
     return (
       <div
         key={`${row}-${col}`}
-        className="relative flex items-center justify-center cursor-pointer"
-        style={{ width: CELL_SIZE, height: CELL_SIZE }}
+        className={cn('relative flex items-center justify-center cursor-pointer', boardStyles.cell)}
         onClick={() => !disabled && onCellClick({ row, col })}
         onMouseEnter={() => onCellHover?.({ row, col })}
         onMouseLeave={() => onCellHover?.(null)}

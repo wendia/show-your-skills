@@ -1,0 +1,150 @@
+@use './styles/variables' as *;
+@use './styles/mixins' as *;
+
+// ============================================
+// Global Styles
+// ============================================
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.App {
+  min-height: 100vh;
+}
+
+// ============================================
+// Board Styles
+// ============================================
+
+.board-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.board {
+  box-shadow: $shadow-lg;
+  border-radius: $radius-lg;
+}
+
+.cell {
+  position: relative;
+  transition: background-color 0.2s ease;
+
+  &:hover {
+    background-color: $board-hover !important;
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background-color: $board-grid;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background-color: $board-grid;
+  }
+}
+
+// ============================================
+// Stone Styles
+// ============================================
+
+.stone {
+  transition: transform 0.1s ease;
+  z-index: $z-stone;
+  position: relative;
+}
+
+.cell:hover .stone {
+  transform: scale(1.05);
+}
+
+// ============================================
+// Skill Card Styles
+// ============================================
+
+.skill-card {
+  transition: $transition-base;
+
+  &:hover:not(.used) {
+    transform: translateY(-2px);
+    box-shadow: $shadow-md;
+  }
+
+  &.selected {
+    border-color: $color-success !important;
+    box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
+  }
+
+  &.used {
+    opacity: 0.5;
+  }
+}
+
+// ============================================
+// Panel Styles
+// ============================================
+
+.left-panel,
+.right-panel {
+  overflow-y: auto;
+}
+
+// ============================================
+// Button Base Styles
+// ============================================
+
+button {
+  transition: $transition-base;
+
+  &:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+// ============================================
+// Responsive
+// ============================================
+
+@include respond-below($breakpoint-lg) {
+  .game-ui {
+    flex-direction: column;
+  }
+
+  .left-panel,
+  .right-panel {
+    width: 100% !important;
+    box-shadow: none;
+  }
+
+  .right-panel {
+    border-top: 1px solid $gray-200;
+  }
+}

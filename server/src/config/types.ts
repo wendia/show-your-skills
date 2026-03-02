@@ -144,3 +144,51 @@ export interface ServerConfig {
     maxConnections: number;
   };
 }
+
+// ===== Game-related types =====
+
+export type Stone = 'black' | 'white';
+
+export type Board = (Stone | null)[][];
+
+export interface Position {
+  row: number;
+  col: number;
+}
+
+export interface HistoryMove {
+  type: 'place' | 'skill';
+  position?: Position;
+  player: Stone;
+  skillId?: string;
+}
+
+export interface BlockedZone {
+  centerPosition: Position;
+  expiresAfterTurn: number;
+  blockedBy: Stone;
+}
+
+export interface PlayerState {
+  id: string;
+  username: string;
+  color: Stone;
+  skillCards: SkillCard[];
+  timeRemaining?: number;
+}
+
+export interface GameState {
+  id: string;
+  board: Board;
+  currentPlayer: Stone;
+  phase: 'waiting' | 'playing' | 'ended';
+  winner?: Stone | 'draw';
+  players: {
+    black: PlayerState;
+    white: PlayerState;
+  };
+  history: HistoryMove[];
+  turn: number;
+  remainingMoves: number;
+  blockedZones: BlockedZone[];
+}

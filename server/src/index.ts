@@ -5,6 +5,8 @@ import { getDatabase, closeDatabase } from './db/index.js';
 import { runMigrations } from './db/migrations.js';
 import { setupAPI } from './api/index.js';
 import { setupWebSocket } from './websocket/index.js';
+import { registerAllEffects } from './skills/effects/index.js';
+import { initializeSkills } from './skills/core/SkillRegistry.js';
 
 const config = configManager.getServerConfig();
 
@@ -32,6 +34,11 @@ const start = async () => {
     const db = getDatabase();
     runMigrations(db);
     fastify.log.info('Database initialized');
+
+    // Initialize skill system
+    registerAllEffects();
+    initializeSkills();
+    fastify.log.info('Skill system initialized');
 
     await fastify.listen({
       port: config.server.port,

@@ -1,0 +1,35 @@
+@use '../styles/variables' as *;
+@use '../styles/mixins' as *;
+
+// ============================================
+// App-level Styles (overlay buttons)
+// ============================================
+
+.backBtn {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  padding: $spacing-sm $spacing-lg;
+  background-color: $gray-700;
+  color: $white;
+  border: none;
+  border-radius: $radius-sm;
+  cursor: pointer;
+  z-index: $z-top;
+  transition: $transition-base;
+
+  &:hover {
+    background-color: $gray-800;
+  }
+}
+
+.onlineInfo {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  padding: 10px 15px;
+  background-color: $color-success;
+  color: $white;
+  border-radius: $radius-sm;
+  font-size: $font-base;
+}

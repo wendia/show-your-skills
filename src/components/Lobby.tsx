@@ -5,6 +5,7 @@
 import React, { useState, useEffect } from 'react';
 import { socketService } from '../services/socket';
 import { authService } from '../services/auth';
+import styles from './Lobby.module.scss';
 
 interface LobbyProps {
   onStartOfflineGame: () => void;
@@ -17,7 +18,6 @@ export const Lobby: React.FC<LobbyProps> = ({ onStartOfflineGame, onMatchFound }
   const user = authService.getStoredUser();
 
   useEffect(() => {
-    // 设置 socket 事件监听
     socketService.onMatchFound((data) => {
       setIsMatching(false);
       onMatchFound(data);
@@ -65,88 +65,37 @@ export const Lobby: React.FC<LobbyProps> = ({ onStartOfflineGame, onMatchFound }
   };
 
   return (
-    <div style={{
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      minHeight: '100vh',
-      backgroundColor: '#f5f5f5',
-    }}>
-      <div style={{
-        backgroundColor: 'white',
-        padding: '40px',
-        borderRadius: '12px',
-        boxShadow: '0 4px 20px rgba(0,0,0,0.1)',
-        width: '500px',
-        textAlign: 'center',
-      }}>
-        <h1 style={{ marginBottom: '10px', color: '#333' }}>🎮 技能五子棋</h1>
-        <p style={{ color: '#666', marginBottom: '30px' }}>在线对战平台</p>
+    <div className={styles.page}>
+      <div className={styles.card}>
+        <h1 className={styles.title}>🎮 技能五子棋</h1>
+        <p className={styles.subtitle}>在线对战平台</p>
 
         {/* 用户信息 */}
         {user && (
-          <div style={{
-            padding: '15px',
-            backgroundColor: '#e3f2fd',
-            borderRadius: '8px',
-            marginBottom: '20px',
-          }}>
-            <div style={{ fontWeight: 'bold', color: '#1976d2' }}>
-              欢迎，{user.username}
-            </div>
+          <div className={styles.userInfo}>
+            <div className={styles.userName}>欢迎，{user.username}</div>
           </div>
         )}
 
         {/* 在线对战 */}
-        <div style={{ marginBottom: '30px' }}>
-          <h3 style={{ marginBottom: '15px', color: '#333' }}>在线对战</h3>
-          
+        <div className={styles.onlineSection}>
+          <h3 className={styles.sectionTitle}>在线对战</h3>
+
           {!isMatching ? (
             <button
               onClick={handleFindMatch}
               disabled={!user}
-              style={{
-                width: '100%',
-                padding: '15px',
-                backgroundColor: user ? '#4CAF50' : '#ccc',
-                color: 'white',
-                border: 'none',
-                borderRadius: '8px',
-                fontSize: '16px',
-                cursor: user ? 'pointer' : 'not-allowed',
-                marginBottom: '10px',
-              }}
+              className={styles.matchBtn}
             >
               🎯 开始匹配
             </button>
           ) : (
             <div>
-              <div style={{
-                padding: '20px',
-                backgroundColor: '#fff3e0',
-                borderRadius: '8px',
-                marginBottom: '10px',
-              }}>
-                <div style={{ marginBottom: '10px', color: '#e65100' }}>
-                  {matchStatus}
-                </div>
-                <div style={{ color: '#666', fontSize: '14px' }}>
-                  匹配中...
-                </div>
+              <div className={styles.matchingBox}>
+                <div className={styles.matchStatus}>{matchStatus}</div>
+                <div className={styles.matchHint}>匹配中...</div>
               </div>
-              <button
-                onClick={handleCancelMatch}
-                style={{
-                  width: '100%',
-                  padding: '12px',
-                  backgroundColor: '#f44336',
-                  color: 'white',
-                  border: 'none',
-                  borderRadius: '8px',
-                  fontSize: '14px',
-                  cursor: 'pointer',
-                }}
-              >
+              <button onClick={handleCancelMatch} className={styles.cancelBtn}>
                 取消匹配
               </button>
             </div>
@@ -154,45 +103,16 @@ export const Lobby: React.FC<LobbyProps> = ({ onStartOfflineGame, onMatchFound }
         </div>
 
         {/* 离线模式 */}
-        <div style={{
-          padding: '20px',
-          backgroundColor: '#f5f5f5',
-          borderRadius: '8px',
-          marginBottom: '20px',
-        }}>
-          <h4 style={{ marginBottom: '10px', color: '#666' }}>离线模式</h4>
-          <button
-            onClick={onStartOfflineGame}
-            style={{
-              width: '100%',
-              padding: '12px',
-              backgroundColor: '#2196F3',
-              color: 'white',
-              border: 'none',
-              borderRadius: '8px',
-              fontSize: '14px',
-              cursor: 'pointer',
-            }}
-          >
+        <div className={styles.offlineSection}>
+          <h4 className={styles.offlineTitle}>离线模式</h4>
+          <button onClick={onStartOfflineGame} className={styles.offlineBtn}>
             🎮 本地对战（双人同屏）
           </button>
         </div>
 
         {/* 退出登录 */}
         {user && (
-          <button
-            onClick={handleLogout}
-            style={{
-              width: '100%',
-              padding: '10px',
-              backgroundColor: 'transparent',
-              color: '#666',
-              border: '1px solid #ddd',
-              borderRadius: '8px',
-              fontSize: '14px',
-              cursor: 'pointer',
-            }}
-          >
+          <button onClick={handleLogout} className={styles.logoutBtn}>
             退出登录
           </button>
         )}

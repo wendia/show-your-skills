@@ -1,0 +1,90 @@
+@use '../styles/variables' as *;
+@use '../styles/mixins' as *;
+
+// ============================================
+// GameInfo Component Styles
+// ============================================
+
+.container {
+  padding: $spacing-xl;
+}
+
+.containerEmpty {
+  @include text-center;
+  padding: $spacing-xl;
+}
+
+.startBtn {
+  @include btn-primary;
+  padding: $spacing-md $spacing-2xl;
+  margin-top: $spacing-xl;
+  width: auto;
+}
+
+// ---------- Current Turn ----------
+.turnInfo {
+  font-size: $font-lg;
+}
+
+.playerName {
+  font-weight: bold;
+}
+
+.playerBlack {
+  color: $stone-black;
+}
+
+.playerWhite {
+  color: $text-secondary;
+}
+
+// ---------- Winner ----------
+.winnerInfo {
+  font-size: $font-xl;
+  font-weight: bold;
+  color: $color-success;
+}
+
+// ---------- Turn Count ----------
+.statusSection {
+  margin-bottom: $spacing-xl;
+}
+
+.turnCount {
+  margin-bottom: $spacing-xl;
+  color: $text-secondary;
+}
+
+// ---------- Actions ----------
+.actions {
+  @include flex-row(10px);
+}
+
+.resetBtn {
+  padding: 8px 16px;
+  background-color: $color-danger;
+  color: $white;
+  border: none;
+  border-radius: $radius-sm;
+  cursor: pointer;
+  transition: $transition-base;
+}
+
+// ---------- Rules ----------
+.rules {
+  margin-top: $spacing-3xl;
+  font-size: $font-base;
+  color: $text-muted;
+
+  h4 {
+    margin-bottom: $spacing-sm;
+  }
+
+  ul {
+    padding-left: $spacing-xl;
+  }
+
+  li {
+    margin-bottom: $spacing-xs;
+  }
+}

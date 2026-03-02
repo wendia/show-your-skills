@@ -1,0 +1,93 @@
+@use '../styles/variables' as *;
+@use '../styles/mixins' as *;
+
+// ============================================
+// Board Component Styles (Legacy)
+// ============================================
+
+.board {
+  display: grid;
+  gap: 0;
+  background-color: $board-bg;
+  padding: $spacing-md;
+  border-radius: $radius-lg;
+  box-shadow: $shadow-lg;
+}
+
+.cell {
+  width: $cell-size;
+  height: $cell-size;
+  @include flex-center;
+  cursor: pointer;
+  border: 1px solid $board-border;
+  position: relative;
+  transition: background-color 0.15s ease;
+  background-color: $board-bg;
+
+  &.blocked {
+    background-color: $blocked-zone;
+    cursor: not-allowed;
+  }
+
+  &.preview {
+    background-color: $preview-zone;
+  }
+
+  &.centerPreview {
+    border: 2px dashed $color-danger;
+  }
+
+  &.crosshair {
+    cursor: crosshair;
+  }
+}
+
+.blockedIcon {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  opacity: 0.4;
+}
+
+.stone {
+  width: $stone-size;
+  height: $stone-size;
+  border-radius: 50%;
+  z-index: $z-stone;
+  position: relative;
+
+  &.black {
+    background-color: $stone-black;
+    box-shadow: inset 3px 3px 6px rgba(255, 255, 255, 0.2),
+                2px 2px 4px rgba(0, 0, 0, 0.3);
+  }
+
+  &.white {
+    background-color: $stone-white;
+    box-shadow: inset 3px 3px 6px rgba(0, 0, 0, 0.15),
+                2px 2px 4px rgba(0, 0, 0, 0.2);
+  }
+}
+
+// ---------- Legend ----------
+.legend {
+  margin-top: 15px;
+  padding: 10px;
+  background-color: $gray-50;
+  border-radius: $radius-md;
+  font-size: $font-sm;
+  color: $text-secondary;
+}
+
+.legendItem {
+  display: flex;
+  align-items: center;
+  gap: $spacing-sm;
+}
+
+.legendSwatch {
+  width: 16px;
+  height: 16px;
+  background-color: $blocked-zone;
+  border-radius: 2px;
+}

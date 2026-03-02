@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { GameState, SkillCard, Position } from '@/config/types';
+import { GameState, SkillCard, Position, Stone, Board } from '@/config/types';
 import { skillRegistry } from '@/skills/core/SkillRegistry';
 
 // Note: registerAllEffects() is called in main.tsx before app renders
@@ -29,6 +29,41 @@ function createInitialGameState(): GameState {
     remainingMoves: 1,
     blockedZones: [],
   };
+}
+
+/**
+ * Check if the last placed stone creates a winning line (5 in a row).
+ */
+function checkWinner(
+  board: Board,
+  lastPosition: Position,
+  color: Stone
+): Stone | null {
+  const directions = [[0, 1], [1, 0], [1, 1], [1, -1]];
+
+  for (const [dr, dc] of directions) {
+    let count = 1;
+
+    for (let i = 1; i < 5; i++) {
+      const r = lastPosition.row + dr * i;
+      const c = lastPosition.col + dc * i;
+      if (r < 0 || r >= board.length || c < 0 || c >= board[0].length) break;
+      if (board[r][c] !== color) break;
+      count++;
+    }
+
+    for (let i = 1; i < 5; i++) {
+      const r = lastPosition.row - dr * i;
+      const c = lastPosition.col - dc * i;
+      if (r < 0 || r >= board.length || c < 0 || c >= board[0].length) break;
+      if (board[r][c] !== color) break;
+      count++;
+    }
+
+    if (count >= 5) return color;
+  }
+
+  return null;
 }
 
 interface GameStore {
@@ -105,15 +140,19 @@ export const useGameStore = create<GameStore>((set, get) => ({
       zone => zone.expiresAfterTurn > gameState.turn
     );
 
+    const winner = checkWinner(newBoard, position, gameState.currentPlayer);
+
     set({
       gameState: {
         ...gameState,
         board: newBoard,
         history: newHistory,
-        currentPlayer: newRemainingMoves > 0 ? gameState.currentPlayer : nextPlayer,
-        turn: newRemainingMoves > 0 ? gameState.turn : gameState.turn + 1,
-        remainingMoves: newRemainingMoves > 0 ? newRemainingMoves : 1,
+        currentPlayer: winner ? gameState.currentPlayer : (newRemainingMoves > 0 ? gameState.currentPlayer : nextPlayer),
+        turn: winner ? gameState.turn : (newRemainingMoves > 0 ? gameState.turn : gameState.turn + 1),
+        remainingMoves: winner ? gameState.remainingMoves : (newRemainingMoves > 0 ? newRemainingMoves : 1),
         blockedZones: newBlockedZones,
+        phase: winner ? 'ended' : 'playing',
+        winner: winner || undefined,
       },
     });
 
