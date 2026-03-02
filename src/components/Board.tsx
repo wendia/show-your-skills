@@ -1,5 +1,9 @@
 /**
  * 棋盘组件
+ *
+ * @deprecated Use '@/components/game/Board' instead.
+ * This file is kept for backward compatibility.
+ * See INCOMPLETE_WORKPLAN.md for migration details.
  */
 
 import React from 'react';

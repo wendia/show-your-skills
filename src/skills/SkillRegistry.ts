@@ -1,9 +1,13 @@
 /**
  * 技能注册表
  * 管理所有可用的技能
+ *
+ * @deprecated Use '@/skills/core/SkillRegistry' instead.
+ * This file is kept for backward compatibility with legacy skills/cards.
+ * See INCOMPLETE_WORKPLAN.md for migration details.
  */
 
-import { Skill, SkillCard, Player, SkillContext, GameState } from '../types';
+import { Skill, SkillCard, SkillContext, GameState } from '../types';
 
 class SkillRegistry {
   private skills: Map<string, Skill> = new Map();

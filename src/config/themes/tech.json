@@ -1,0 +1,78 @@
+{
+  "id": "tech",
+  "name": "赛博科技",
+  "version": "1.0.0",
+  "colors": {
+    "primary": {
+      "50": "#ecfeff",
+      "500": "#06b6d4",
+      "900": "#164e63"
+    },
+    "secondary": {
+      "50": "#fdf4ff",
+      "500": "#d946ef",
+      "900": "#701a75"
+    },
+    "background": {
+      "light": "#f0f9ff",
+      "dark": "#0f172a"
+    },
+    "surface": {
+      "light": "#e0f2fe",
+      "dark": "#1e293b"
+    },
+    "text": {
+      "light": "#0f172a",
+      "dark": "#f0f9ff"
+    }
+  },
+  "rarity": {
+    "common": {
+      "gradient": "from-zinc-700 to-zinc-800",
+      "border": "border-zinc-500/30",
+      "glow": "rgba(63,63,70,0.3)",
+      "badge": "bg-zinc-500 text-white"
+    },
+    "rare": {
+      "gradient": "from-cyan-600 to-blue-600",
+      "border": "border-cyan-400/50",
+      "glow": "rgba(34,211,238,0.5)",
+      "badge": "bg-cyan-500 text-black"
+    },
+    "epic": {
+      "gradient": "from-violet-600 to-fuchsia-600",
+      "border": "border-violet-400/50",
+      "glow": "rgba(167,139,250,0.5)",
+      "badge": "bg-violet-500 text-white"
+    },
+    "legendary": {
+      "gradient": "from-emerald-400 to-teal-500",
+      "border": "border-emerald-300/50",
+      "glow": "rgba(52,211,153,0.6)",
+      "badge": "bg-emerald-500 text-black"
+    }
+  },
+  "card": {
+    "borderRadius": 8,
+    "shadowGlow": true,
+    "animationStyle": "snappy",
+    "backgroundStyle": "solid"
+  },
+  "board": {
+    "style": "modern",
+    "gridColor": "#06b6d4",
+    "backgroundColor": "#0f172a",
+    "stoneStyle": "modern"
+  },
+  "animations": {
+    "enabled": true,
+    "duration": 200,
+    "easing": "ease-out",
+    "particleEffects": false
+  },
+  "sounds": {
+    "enabled": true,
+    "volume": 0.7,
+    "packId": "tech"
+  }
+}

@@ -1,0 +1,63 @@
+{
+  "id": "chaos",
+  "name": "混乱模式",
+  "description": "高随机性的混乱技能池",
+  "skills": [
+    {
+      "id": "reverse_chaos",
+      "name": "倒转乾坤",
+      "description": "随机反转棋面上 {flipPercent}% 的棋子颜色",
+      "rarity": "legendary",
+      "type": "instant",
+      "priority": 10,
+      "effectId": "flipStones",
+      "conditions": [],
+      "params": {
+        "flipPercent": 50
+      },
+      "ui": {
+        "icon": "RefreshCcw",
+        "animationId": "flip",
+        "soundId": "reverse"
+      }
+    },
+    {
+      "id": "time_warp",
+      "name": "时间回溯",
+      "description": "撤销对手最近的一步棋",
+      "rarity": "epic",
+      "type": "instant",
+      "priority": 20,
+      "effectId": "undoMove",
+      "conditions": [],
+      "params": {},
+      "ui": {
+        "icon": "RotateCcw",
+        "animationId": "undo",
+        "soundId": "warp"
+      }
+    },
+    {
+      "id": "double_move",
+      "name": "双子连珠",
+      "description": "本回合可以连续落两子",
+      "rarity": "legendary",
+      "type": "instant",
+      "priority": 30,
+      "effectId": "doubleMove",
+      "conditions": [],
+      "params": {},
+      "ui": {
+        "icon": "Target",
+        "animationId": "double",
+        "soundId": "double"
+      }
+    }
+  ],
+  "distribution": {
+    "method": "random",
+    "countPerPlayer": 5,
+    "allowDuplicates": true,
+    "balanceByRarity": false
+  }
+}

@@ -1,0 +1,78 @@
+{
+  "id": "magic",
+  "name": "魔法世界",
+  "version": "1.0.0",
+  "colors": {
+    "primary": {
+      "50": "#faf5ff",
+      "500": "#a855f7",
+      "900": "#581c87"
+    },
+    "secondary": {
+      "50": "#fdf4ff",
+      "500": "#d946ef",
+      "900": "#701a75"
+    },
+    "background": {
+      "light": "#faf5ff",
+      "dark": "#1a0a2e"
+    },
+    "surface": {
+      "light": "#f3e8ff",
+      "dark": "#2d1b4e"
+    },
+    "text": {
+      "light": "#1a0a2e",
+      "dark": "#faf5ff"
+    }
+  },
+  "rarity": {
+    "common": {
+      "gradient": "from-slate-600 to-slate-700",
+      "border": "border-slate-500/30",
+      "glow": "rgba(100,116,139,0.3)",
+      "badge": "bg-slate-500 text-white"
+    },
+    "rare": {
+      "gradient": "from-blue-600 to-cyan-600",
+      "border": "border-blue-500/30",
+      "glow": "rgba(59,130,246,0.4)",
+      "badge": "bg-blue-500 text-white"
+    },
+    "epic": {
+      "gradient": "from-purple-600 to-pink-600",
+      "border": "border-purple-500/30",
+      "glow": "rgba(147,51,234,0.5)",
+      "badge": "bg-purple-500 text-white"
+    },
+    "legendary": {
+      "gradient": "from-amber-500 to-orange-600",
+      "border": "border-amber-400/50",
+      "glow": "rgba(245,158,11,0.6)",
+      "badge": "bg-amber-500 text-black"
+    }
+  },
+  "card": {
+    "borderRadius": 16,
+    "shadowGlow": true,
+    "animationStyle": "smooth",
+    "backgroundStyle": "gradient"
+  },
+  "board": {
+    "style": "wood",
+    "gridColor": "#8B4513",
+    "backgroundColor": "#DEB887",
+    "stoneStyle": "classic"
+  },
+  "animations": {
+    "enabled": true,
+    "duration": 300,
+    "easing": "ease-out",
+    "particleEffects": true
+  },
+  "sounds": {
+    "enabled": true,
+    "volume": 0.8,
+    "packId": "magic"
+  }
+}

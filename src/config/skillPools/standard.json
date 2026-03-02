@@ -1,0 +1,108 @@
+{
+  "id": "standard",
+  "name": "标准技能池",
+  "description": "平衡的标准技能组合",
+  "skills": [
+    {
+      "id": "reverse_chaos",
+      "name": "倒转乾坤",
+      "description": "随机反转棋面上 {flipPercent}% 的棋子颜色",
+      "rarity": "legendary",
+      "type": "instant",
+      "priority": 10,
+      "effectId": "flipStones",
+      "conditions": [
+        { "type": "min_stones", "value": 3 }
+      ],
+      "params": {
+        "flipPercent": 30
+      },
+      "ui": {
+        "icon": "RefreshCcw",
+        "animationId": "flip",
+        "soundId": "reverse"
+      }
+    },
+    {
+      "id": "time_warp",
+      "name": "时间回溯",
+      "description": "撤销对手最近的一步棋",
+      "rarity": "epic",
+      "type": "instant",
+      "priority": 20,
+      "effectId": "undoMove",
+      "conditions": [
+        { "type": "history_not_empty", "value": true }
+      ],
+      "params": {},
+      "ui": {
+        "icon": "RotateCcw",
+        "animationId": "undo",
+        "soundId": "warp"
+      }
+    },
+    {
+      "id": "clone",
+      "name": "棋子复制",
+      "description": "在指定空位放置己方棋子",
+      "rarity": "rare",
+      "type": "target",
+      "priority": 15,
+      "effectId": "placeStone",
+      "conditions": [],
+      "params": {},
+      "ui": {
+        "icon": "Copy",
+        "animationId": "place",
+        "soundId": "place"
+      }
+    },
+    {
+      "id": "block_zone",
+      "name": "区域封锁",
+      "description": "封锁指定 3x3 区域一回合",
+      "rarity": "epic",
+      "type": "target",
+      "priority": 25,
+      "effectId": "blockZone",
+      "conditions": [],
+      "params": {
+        "size": 3
+      },
+      "ui": {
+        "icon": "Ban",
+        "animationId": "block",
+        "soundId": "block"
+      }
+    },
+    {
+      "id": "double_move",
+      "name": "双子连珠",
+      "description": "本回合可以连续落两子",
+      "rarity": "legendary",
+      "type": "instant",
+      "priority": 30,
+      "effectId": "doubleMove",
+      "conditions": [],
+      "params": {},
+      "ui": {
+        "icon": "Target",
+        "animationId": "double",
+        "soundId": "double"
+      }
+    }
+  ],
+  "distribution": {
+    "method": "balanced",
+    "countPerPlayer": 3,
+    "allowDuplicates": false,
+    "balanceByRarity": true
+  },
+  "weights": {
+    "reverse_chaos": 1,
+    "time_warp": 2,
+    "clone": 3,
+    "block_zone": 2,
+    "double_move": 1
+  }
+}

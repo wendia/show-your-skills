@@ -1,5 +1,9 @@
 /**
  * 技能卡组件
+ *
+ * @deprecated Use '@/components/game/SkillCard' instead.
+ * This file is kept for backward compatibility.
+ * See INCOMPLETE_WORKPLAN.md for migration details.
  */
 
 import React from 'react';
@@ -180,12 +184,22 @@ function getButtonText(skillId: string, isSelected: boolean): string {
  */
 export const SkillCardList: React.FC = () => {
   const { gameState, selectMode } = useGameStore();
-  
+
   if (!gameState) return null;
-  
+
   const currentPlayer = gameState.players[gameState.currentPlayer];
   const opponent = gameState.players[gameState.currentPlayer === 'black' ? 'white' : 'black'];
-  
+
+  // Safely access skillCards with fallback to empty array
+  const currentPlayerCards = currentPlayer?.skillCards ?? [];
+  const opponentCards = opponent?.skillCards ?? [];
+  const currentPlayerName = (currentPlayer as { username?: string; name?: string })?.username
+    || (currentPlayer as { username?: string; name?: string })?.name
+    || 'Current Player';
+  const opponentName = (opponent as { username?: string; name?: string })?.username
+    || (opponent as { username?: string; name?: string })?.name
+    || 'Opponent';
+
   return (
     <div className="skill-cards-container" style={{ 
       display: 'flex', 
@@ -219,7 +233,7 @@ export const SkillCardList: React.FC = () => {
           backgroundColor: '#e3f2fd',
           borderRadius: '8px',
         }}>
-          {getPlayerIcon(currentPlayer.color)} {currentPlayer.name}
+          {getPlayerIcon(currentPlayer?.color ?? 'black')} {currentPlayerName}
           <span style={{ 
             fontSize: '12px', 
             color: '#666',
@@ -229,20 +243,20 @@ export const SkillCardList: React.FC = () => {
           </span>
         </div>
         <div style={{ display: 'flex', flexWrap: 'wrap' }}>
-          {currentPlayer.skillCards.map(card => (
-            <SkillCardComponent 
-              key={card.id} 
-              card={card} 
+          {currentPlayerCards.map(card => (
+            <SkillCardComponent
+              key={card.id}
+              card={card}
               isCurrentPlayer={true}
             />
           ))}
         </div>
       </div>
-      
+
       {/* 对手 */}
       <div style={{ opacity: 0.7 }}>
-        <div style={{ 
-          fontWeight: 'bold', 
+        <div style={{
+          fontWeight: 'bold',
           marginBottom: '12px',
           fontSize: '16px',
           color: '#333',
@@ -250,10 +264,10 @@ export const SkillCardList: React.FC = () => {
           backgroundColor: '#f5f5f5',
           borderRadius: '8px',
         }}>
-          {getPlayerIcon(opponent.color)} {opponent.name}
+          {getPlayerIcon(opponent?.color ?? 'white')} {opponentName}
         </div>
         <div style={{ display: 'flex', flexWrap: 'wrap' }}>
-          {opponent.skillCards.map(card => (
+          {opponentCards.map(card => (
             <SkillCardComponent 
               key={card.id} 
               card={card} 

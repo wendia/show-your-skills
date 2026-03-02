@@ -147,14 +147,14 @@ describe('Game Core Logic', () => {
       const board = createEmptyBoard(15);
       board[7][7] = 'black';
       board[7][8] = 'white';
-      
+
       const newBoard = flipStones(board, [
         { row: 7, col: 7 },
         { row: 7, col: 8 }
       ]);
-      
+
       expect(newBoard[7][7]).toBe('white');
-      expect(newBoard[8][8]).toBe('black');
+      expect(newBoard[7][8]).toBe('black');
     });
   });
 });
